@@ -41,11 +41,13 @@ function Tracker() {
 			<form onSubmit={handleAddExpense}>
 				<input
 					type="text"
+					placeholder="title"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/>
 				<input
 					type="text"
+					placeholder="description"
 					value={desc}
 					onChange={(e) => setDesc(e.target.value)}
 				/>
