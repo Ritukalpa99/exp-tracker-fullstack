@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 function Tracker() {
 	const [expenses, setExpenses] = useState([]);
-	const [name, setName] = useState("");
+	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [amount, setAmount] = useState(0);
 
@@ -17,6 +17,7 @@ function Tracker() {
 				}
 				const data = await response.json();
 				setExpenses(data);
+				console.log(data);
 			} catch (err) {
 				console.error("Error fetching expense", err.message);
 			}
@@ -32,7 +33,7 @@ function Tracker() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ name, description, amount }),
+				body: JSON.stringify({ title, amount, description}),
 			});
 
 			if (!response.ok) {
@@ -68,8 +69,8 @@ function Tracker() {
 					<p>NO expenses</p>
 				) : (
 					expenses.map((exp) => (
-						<li key={exp.name}>
-							{exp.name} - {exp.desc} - Rs. {exp.amount}
+						<li key={exp.id}>
+							{exp.title} - {exp.description} - Rs. {exp.amount}
 						</li>
 					))
 				)}
@@ -79,8 +80,8 @@ function Tracker() {
 				<input
 					type="text"
 					placeholder="title"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
+					value={title}
+					onChange={(e) => setTitle(e.target.value)}
 				/>
 				<input
 					type="text"
